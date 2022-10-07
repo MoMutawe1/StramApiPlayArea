@@ -10,7 +10,8 @@ public class Main {
     public static void main(String[] args) {
         //printWithoutStreamsApi();
         //printWithStreamsApi();
-        printNotNullValues();
+        //printNotNullValues();
+        laptopList();
 
     }
 
@@ -50,4 +51,29 @@ public class Main {
         List notNullList = myList.stream().filter(w->w!=null).collect(Collectors.toList());
         System.out.println(notNullList);
     }
+
+    public static void laptopList(){
+        List<Item> items = new ArrayList<>();
+        items.add(new Item(1,"Mac Laptop", 3000.0));
+        items.add(new Item(2, "Windows Laptop", 2450.0));
+        items.add(new Item(3, "HP Laptop", 1600.0));
+
+        items.stream()
+                .filter(i->i.price<2500)
+                .forEach(pr->System.out.println(pr.price));
+    }
+}
+
+class Item{
+    int id;
+    String itemName;
+    double price;
+
+    Item(int id, String name, double price){
+        this.id = id;
+        this.itemName = name;
+        this.price = price;
+    }
+
+
 }
