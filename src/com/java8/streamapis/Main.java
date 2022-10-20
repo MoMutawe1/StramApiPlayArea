@@ -1,4 +1,4 @@
-package com.mutawescode;
+package com.java8.streamapis;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,8 +11,12 @@ public class Main {
         //printWithoutStreamsApi();
         //printWithStreamsApi();
         //printNotNullValues();
-        laptopList();
-
+        //laptopList();
+        //toUpperCaseNoStreams();
+        //toUpperCaseStreams();
+        //printLength();
+        // printLengthStreamApi();
+        filterEmpWithMap();
     }
 
     public static void printWithoutStreamsApi(){
@@ -62,6 +66,47 @@ public class Main {
                 .filter(i->i.price<2500)
                 .forEach(pr->System.out.println(pr.price));
     }
+
+    public static void toUpperCaseNoStreams(){
+        List<String> myList = Arrays.asList("one", "two", "three", "four", "five", "Six");
+        List<String> toUpper = new ArrayList<>();
+
+        for(int i=0; i<myList.size(); i++){
+            toUpper.add(myList.get(i).toUpperCase());
+        }
+        for(String i: toUpper)
+            System.out.print(i + " ");
+
+    }
+
+    public static void toUpperCaseStreams(){
+        List<String> myList = Arrays.asList("one", "two", "three", "four", "five", "Six");
+        List<String> toUpper = myList.stream().map(m->m.toUpperCase()).collect(Collectors.toList());
+
+        for(String i: toUpper)
+            System.out.print(i + " ");
+    }
+
+    public static void printLengthStreamApi(){
+        List<String> vehicles = Arrays.asList("bus", "car", "boat", "bicycle", "flight", "train");
+        vehicles.stream().map(m->m.length()).forEach(System.out::println);
+    }
+
+    public static void printLength(){
+        List<String> vehicles = Arrays.asList("bus", "car", "boat", "bicycle", "flight", "train");
+        for(String i: vehicles)
+            System.out.println(i + " : " + i.length());
+    }
+
+    public static void filterEmpWithMap(){
+        List<Employee> emp = new ArrayList<>();
+        emp.add(new Employee(101, "Tarek", 40000));
+        emp.add(new Employee(102, "Omar", 30000));
+        emp.add(new Employee(103, "Sa'ad", 50000));
+
+        List<Integer> empList = emp.stream().filter(e->e.empSalary>40000).map(m->m.empSalary).collect(Collectors.toList());
+        System.out.println(empList);
+    }
 }
 
 class Item{
@@ -74,6 +119,16 @@ class Item{
         this.itemName = name;
         this.price = price;
     }
+}
 
+class Employee{
+    int empId;
+    String empName;
+    int empSalary;
 
+    Employee(int id, String name, int salary){
+        this.empId = id;
+        this.empName = name;
+        this.empSalary = salary;
+    }
 }
